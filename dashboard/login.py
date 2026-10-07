@@ -1,4 +1,13 @@
+import sys
+from pathlib import Path
+
 import streamlit as st
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 
 def show_login():
@@ -201,7 +210,18 @@ def show_login():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="login-space"></div>', unsafe_allow_html=True)
+    if st.button(
+        "← Back to SecureNet AI",
+        key="login_back",
+        width="content",
+    ):
+        st.session_state.page = "landing"
+        st.rerun()
+
+    st.markdown(
+        '<div class="login-space"></div>',
+        unsafe_allow_html=True,
+    )
 
     # Two-column login layout
     left, right = st.columns([1.1, 0.9], gap="large")
@@ -335,8 +355,26 @@ def show_login():
                 st.error("Please enter your password.")
 
             else:
-                st.session_state.page = "dashboard"
-            st.rerun()
+
+                from src.database import verify_user
+
+                user = verify_user(
+                    email,
+                    password,
+                )
+
+                if user is None:
+                    st.error(
+                        "Invalid email address or password."
+                    )
+
+                else:
+                    st.session_state.user_id = user["id"]
+                    st.session_state.user_name = user["full_name"]
+                    st.session_state.user_email = user["email"]
+
+                    st.session_state.page = "dashboard"
+                    st.rerun()
 
         st.markdown(
             '<div class="register-text">Don\'t have an account?</div>',

@@ -1,4 +1,13 @@
+import sys
+from pathlib import Path
+
 import streamlit as st
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 
 
 def show_register():
@@ -332,7 +341,25 @@ def show_register():
                 st.error("Please accept the Terms of Service.")
 
             else:
-                st.success("Account created successfully.")
+
+                from src.database import create_user
+
+                user_id = create_user(
+                    full_name,
+                    email,
+                    password,
+                )
+
+                if user_id is None:
+                    st.error(
+                        "An account with this email already exists."
+                    )
+
+                else:
+                    st.success(
+                        "Account created successfully. "
+                        "You can now sign in."
+                    )
 
         st.markdown(
             '<div class="signin-text">Already have an account?</div>',

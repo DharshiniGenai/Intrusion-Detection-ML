@@ -3,7 +3,7 @@ from pathlib import Path
 import joblib
 import pandas as pd
 
-from preprocess import COLUMNS
+from src.preprocess import COLUMNS
 
 
 PRIMARY_MODEL_PATH = Path("models/final_ids_model.joblib")

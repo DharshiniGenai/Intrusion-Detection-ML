@@ -21,8 +21,6 @@ if "page" not in st.session_state:
     st.session_state.page = "landing"
 
 
-
-
 # ============================================================
 # GLOBAL CSS
 # ============================================================
@@ -31,13 +29,17 @@ st.markdown(
     """
     <style>
 
-    /* ========================================================
-       GLOBAL
-       ======================================================== */
+    /* =========================================================
+       SECURENET AI — DARK CYBERSECURITY THEME
+       ========================================================= */
+
+    html {
+        scroll-behavior: smooth;
+    }
 
     .stApp {
-        background-color: #f7faf8;
-        color: #17231d;
+        background: #071525;
+        color: #f4f8fc;
     }
 
     .block-container {
@@ -46,429 +48,530 @@ st.markdown(
         padding-bottom: 2rem;
     }
 
-    #MainMenu {
-        visibility: hidden;
-    }
-
-    footer {
-        visibility: hidden;
-    }
-
-    header {
-        background: transparent !important;
-    }
-
+    header,
     [data-testid="stHeader"] {
         background: transparent !important;
     }
 
-    [data-testid="stToolbar"] {
-        display: none;
+    /* =========================================================
+       GENERAL TEXT
+       ========================================================= */
+
+    p {
+        color: #b8c9d9;
     }
 
-
-    /* ========================================================
-       BUTTONS
-       ======================================================== */
-
-    .stButton > button {
-        border-radius: 10px;
-        min-height: 46px;
-        border: 1px solid #d9e5df;
-        background-color: #ffffff;
-        color: #183127;
-        font-weight: 600;
-        font-size: 14px;
-        transition: 0.2s ease;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #f4f8fc;
     }
 
-    .stButton > button:hover {
-        border-color: #145c45;
-        color: #145c45;
-        background-color: #f1f8f4;
+    label {
+        color: #d7e3ef !important;
     }
 
-
-    /* ========================================================
-       PRIMARY BUTTON
-       ======================================================== */
-
-    .primary-button .stButton > button {
-        background-color: #145c45;
-        color: white;
-        border-color: #145c45;
-    }
-
-    .primary-button .stButton > button:hover {
-        background-color: #0f4d39;
-        color: white;
-        border-color: #0f4d39;
-    }
-
-
-    /* ========================================================
+    /* =========================================================
        NAVIGATION
-       ======================================================== */
+       ========================================================= */
 
     .nav-brand {
-        font-size: 21px;
-        font-weight: 750;
-        color: #17231d;
-        padding-top: 7px;
+        color: #f4f8fc;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
     }
 
     .nav-icon {
-        background-color: #145c45;
-        color: white;
-        padding: 8px 10px;
+        margin-right: 5px;
+    }
+
+    .nav-anchor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 12px;
         border-radius: 10px;
-        margin-right: 7px;
-    }
-
-    .nav-link-button .stButton > button {
-        border: none;
+        border: 1px solid transparent;
+        color: #dce8f3 !important;
         background: transparent;
-        color: #68766f;
-        min-height: 40px;
-        padding: 0;
+        text-decoration: none !important;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: all 0.2s ease;
     }
 
-    .nav-link-button .stButton > button:hover {
-        background: transparent;
-        color: #145c45;
+    .nav-anchor:hover {
+        background: #10243a;
+        border-color: #294966;
+        color: #ffffff !important;
+        text-decoration: none !important;
     }
 
-
-    /* ========================================================
+    /* =========================================================
        HERO
-       ======================================================== */
+       ========================================================= */
 
     .hero-badge {
         display: inline-block;
-        background-color: #e8f4ed;
-        color: #145c45;
-        border-radius: 30px;
-        padding: 8px 15px;
-        font-size: 12px;
-        font-weight: 650;
-        margin-bottom: 18px;
+        padding: 9px 16px;
+        border-radius: 999px;
+        background: #102b43;
+        border: 1px solid #214968;
+        color: #48c7ff;
+        font-size: 13px;
+        font-weight: 700;
     }
 
     .hero-title {
-        font-size: 62px;
-        line-height: 1.04;
-        letter-spacing: -2.5px;
-        font-weight: 760;
-        color: #17231d;
-        margin-bottom: 20px;
+        color: #f4f8fc;
+        font-size: 64px;
+        line-height: 1.03;
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-top: 20px;
     }
 
     .hero-accent {
-        color: #145c45;
+        color: #35b9ff;
     }
 
     .hero-description {
-        color: #64736b;
-        font-size: 17px;
-        line-height: 1.75;
-        max-width: 650px;
-        margin-bottom: 22px;
+        color: #a9bdd0;
+        font-size: 18px;
+        line-height: 1.7;
+        max-width: 680px;
+        margin-top: 22px;
     }
 
     .hero-feature {
-        color: #617068;
-        font-size: 13px;
+        color: #c5d5e3;
+        font-size: 15px;
         margin-top: 13px;
     }
 
     .hero-feature-mark {
-        color: #145c45;
-        font-weight: bold;
-        margin-right: 7px;
+        color: #35e58a;
+        font-weight: 700;
+        margin-right: 8px;
     }
 
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
 
-    /* ========================================================
-       ANALYSIS PREVIEW
-       ======================================================== */
+    .stButton > button {
+        min-height: 46px;
+        border-radius: 10px;
+        border: 1px solid #294966;
+        background: #10243a;
+        color: #f4f8fc;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    .stButton > button:hover {
+        background: #163653;
+        border-color: #35b9ff;
+        color: #ffffff;
+    }
+
+    /* =========================================================
+       HERO ANALYSIS CARD
+       ========================================================= */
 
     .analysis-header {
-        font-size: 17px;
-        font-weight: 700;
-        color: #17231d;
+        color: #f4f8fc;
+        font-size: 20px;
+        font-weight: 750;
     }
 
     .analysis-subtitle {
-        font-size: 12px;
-        color: #77847e;
-        margin-top: 3px;
+        color: #829bb1;
+        font-size: 13px;
+        margin-top: 5px;
     }
 
     .ready-badge {
-        background-color: #e9f7ef;
-        color: #198754;
-        border-radius: 20px;
-        padding: 5px 9px;
-        font-size: 9px;
-        font-weight: 750;
-        text-align: center;
-    }
-
-    .analysis-number {
-        font-size: 30px;
-        font-weight: 760;
-        color: #17231d;
+        display: inline-block;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(53, 229, 138, 0.10);
+        border: 1px solid rgba(53, 229, 138, 0.30);
+        color: #35e58a;
+        font-size: 11px;
+        font-weight: 700;
     }
 
     .analysis-caption {
-        font-size: 10px;
-        color: #98a49e;
+        color: #8ca5ba;
+        font-size: 12px;
+    }
+
+    .analysis-number {
+        color: #ffffff;
+        font-size: 36px;
+        font-weight: 800;
+        margin-top: 4px;
     }
 
     .result-title {
-        font-size: 11px;
-        color: #7b8982;
+        color: #f4f8fc;
+        font-size: 13px;
+        font-weight: 600;
     }
 
     .result-normal {
-        font-size: 18px;
-        font-weight: 720;
-        color: #17231d;
-    }
-
-    .result-confidence {
-        font-size: 18px;
-        font-weight: 720;
-        color: #145c45;
+        color: #35e58a;
+        font-size: 19px;
+        font-weight: 800;
+        margin-top: 4px;
     }
 
     .result-caption {
-        font-size: 9px;
-        color: #9aa49f;
+        color: #8ca5ba;
+        font-size: 11px;
     }
 
+    .result-confidence {
+        color: #35e58a;
+        font-size: 22px;
+        font-weight: 800;
+        margin-top: 3px;
+    }
 
-    /* ========================================================
-       SECTION HEADINGS
-       ======================================================== */
+    /* =========================================================
+       HERO LINK BUTTONS
+       ========================================================= */
+
+    .hero-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 16px;
+        border-radius: 10px;
+        border: 1px solid #294966;
+        background: #10243a;
+        color: #f4f8fc !important;
+        text-decoration: none !important;
+        font-size: 14px;
+        font-weight: 650;
+        transition: all 0.2s ease;
+    }
+
+    .hero-link:hover {
+        background: #163653;
+        border-color: #35b9ff;
+        color: #ffffff !important;
+        text-decoration: none !important;
+    }
+
+    .hero-link-primary {
+        background: #0e4d70;
+        border-color: #35b9ff;
+        color: #ffffff !important;
+    }
+
+    .hero-link-primary:hover {
+        background: #12658e;
+        border-color: #63d0ff;
+    }
+
+    /* =========================================================
+       SECTION SPACING
+       ========================================================= */
+
+    .section-gap {
+        height: 82px;
+    }
+
+    .section-heading-wrapper {
+        text-align: center;
+        margin-bottom: 42px;
+    }
 
     .section-kicker {
-        color: #145c45;
-        font-size: 11px;
-        font-weight: 750;
-        letter-spacing: 1.5px;
+        color: #35b9ff;
+        font-size: 13px;
+        font-weight: 700;
         text-transform: uppercase;
+        letter-spacing: 1.2px;
         text-align: center;
     }
 
     .section-title {
-        color: #17231d;
-        font-size: 38px;
-        font-weight: 750;
+        color: #f4f8fc;
+        font-size: 42px;
+        font-weight: 800;
         letter-spacing: -1px;
         text-align: center;
-        margin-top: 7px;
-    }
-
-    .section-description {
-        color: #718078;
-        font-size: 14px;
-        line-height: 1.7;
-        text-align: center;
-        max-width: 690px;
-        margin: 8px auto 30px auto;
-    }
-
-
-    /* ========================================================
-       CARD TITLES
-       ======================================================== */
-
-    .card-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #17231d;
-    }
-
-    .card-description {
-        color: #718078;
-        font-size: 12px;
-        line-height: 1.7;
         margin-top: 8px;
     }
 
-    .card-icon {
-        font-size: 24px;
-        margin-bottom: 8px;
+    .section-description {
+        color: #9db2c5;
+        font-size: 16px;
+        line-height: 1.7;
+        max-width: 760px;
+        margin: 12px auto 0 auto;
+        text-align: center;
     }
 
+    /* =========================================================
+       FEATURE CARDS
+       ========================================================= */
 
-    /* ========================================================
-       PROCESS
-       ======================================================== */
+    .card-icon {
+        font-size: 28px;
+        margin-bottom: 14px;
+    }
+
+    .card-title {
+        color: #f4f8fc;
+        font-size: 18px;
+        font-weight: 750;
+    }
+
+    .card-description {
+        color: #91a7ba;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-top: 8px;
+    }
+
+    .feature-link {
+        color: #35b9ff !important;
+        text-decoration: none !important;
+        font-weight: 750;
+    }
+
+    .feature-link:hover {
+        color: #70d4ff !important;
+        text-decoration: underline !important;
+    }
+
+    /* =========================================================
+       HOW IT WORKS
+       ========================================================= */
 
     .step-number {
-        color: #145c45;
+        color: #35b9ff;
         font-size: 12px;
         font-weight: 800;
         letter-spacing: 1px;
     }
 
     .step-title {
-        color: #17231d;
-        font-size: 17px;
-        font-weight: 700;
-        margin-top: 13px;
+        color: #f4f8fc;
+        font-size: 19px;
+        font-weight: 750;
+        margin-top: 8px;
     }
 
     .step-description {
-        color: #718078;
-        font-size: 12px;
-        line-height: 1.7;
+        color: #91a7ba;
+        font-size: 14px;
+        line-height: 1.6;
         margin-top: 7px;
     }
 
-
-    /* ========================================================
-       THREAT
-       ======================================================== */
+    /* =========================================================
+       THREAT CATEGORY CARDS
+       ========================================================= */
 
     .threat-icon {
-        font-size: 25px;
-        text-align: center;
+        font-size: 28px;
     }
 
     .threat-name {
-        color: #17231d;
+        color: #f4f8fc;
+        font-size: 18px;
+        font-weight: 750;
+        margin-top: 10px;
+    }
+
+    .threat-description {
+        color: #91a7ba;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    /* =========================================================
+       PERFORMANCE / HISTORY
+       ========================================================= */
+
+    .resource-card {
+        background: #0d1d31;
+        border: 1px solid #213c58;
+        border-radius: 16px;
+        padding: 24px;
+        height: 100%;
+    }
+
+    .resource-icon {
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+
+    .resource-title {
+        color: #f4f8fc;
+        font-size: 20px;
+        font-weight: 750;
+    }
+
+    .resource-text {
+        color: #91a7ba;
+        font-size: 14px;
+        line-height: 1.65;
+        margin-top: 8px;
+    }
+
+    .resource-link {
+        display: inline-block;
+        margin-top: 15px;
+        color: #35b9ff !important;
+        font-size: 13px;
         font-weight: 700;
-        font-size: 15px;
+        text-decoration: none !important;
+    }
+
+    .resource-link:hover {
+        color: #70d4ff !important;
+        text-decoration: underline !important;
+    }
+
+    /* =========================================================
+       ABOUT
+       ========================================================= */
+
+    .about-kicker {
+        color: #35b9ff;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        text-align: center;
+    }
+
+    .about-title {
+        color: #f4f8fc;
+        font-size: 30px;
+        font-weight: 800;
         text-align: center;
         margin-top: 8px;
     }
 
-    .threat-description {
-        color: #78857f;
-        font-size: 10px;
-        text-align: center;
-        margin-top: 5px;
-    }
-
-
-    /* ========================================================
-       ABOUT
-       ======================================================== */
-
-    .about-title {
-        color: white;
-        font-size: 38px;
-        font-weight: 750;
-        line-height: 1.15;
-    }
-
-    .about-kicker {
-        color: #8bd0af;
-        font-size: 11px;
-        font-weight: 750;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
-
     .about-text {
-        color: #c3d7ce;
-        font-size: 14px;
-        line-height: 1.8;
+        color: #9db2c5;
+        font-size: 15px;
+        line-height: 1.75;
     }
 
     .about-note {
-        color: #91b1a4;
-        font-size: 11px;
+        color: #7f9ab2;
+        font-size: 14px;
         line-height: 1.7;
+        padding: 14px;
+        border-left: 3px solid #35b9ff;
+        background: #0a1c2e;
+        border-radius: 8px;
     }
 
-
-    /* ========================================================
+    /* =========================================================
        CTA
-       ======================================================== */
+       ========================================================= */
 
     .cta-title {
-        color: #17231d;
-        font-size: 38px;
-        line-height: 1.15;
-        font-weight: 750;
-        letter-spacing: -1px;
+        color: #ffffff;
+        font-size: 40px;
+        font-weight: 800;
         text-align: center;
+        line-height: 1.15;
     }
 
     .cta-description {
-        color: #718078;
-        font-size: 14px;
-        line-height: 1.7;
+        color: #a9bdd0;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 12px auto 0 auto;
+        max-width: 700px;
         text-align: center;
-        max-width: 620px;
-        margin: 10px auto 25px auto;
     }
 
-
-    /* ========================================================
+    /* =========================================================
        FOOTER
-       ======================================================== */
+       ========================================================= */
 
     .footer-title {
-        color: #17231d;
-        font-size: 17px;
-        font-weight: 720;
+        color: #f4f8fc;
+        font-size: 18px;
+        font-weight: 800;
     }
 
     .footer-text {
-        color: #78857f;
-        font-size: 11px;
-        line-height: 1.7;
+        color: #71889d;
+        font-size: 13px;
+        line-height: 1.6;
+        margin-top: 10px;
     }
 
     .footer-heading {
-        color: #17231d;
-        font-size: 12px;
+        color: #dce8f3;
+        font-size: 13px;
         font-weight: 700;
+        margin-bottom: 10px;
     }
 
-    .footer-item {
-        color: #78857f;
-        font-size: 11px;
-        margin-top: 6px;
+    .footer-link {
+        display: block;
+        color: #8098ac !important;
+        font-size: 13px;
+        margin-top: 7px;
+        text-decoration: none !important;
+    }
+
+    .footer-link:hover {
+        color: #35b9ff !important;
+        text-decoration: none !important;
     }
 
     .copyright {
-        color: #98a49e;
-        font-size: 10px;
+        color: #60778c;
+        font-size: 12px;
         text-align: center;
-        padding-top: 18px;
+        margin-top: 30px;
+        padding-bottom: 15px;
     }
 
+    hr {
+        border-color: #20384f !important;
+    }
 
-    /* ========================================================
-       MOBILE
-       ======================================================== */
+    /* =========================================================
+       ANCHORS
+       ========================================================= */
 
-    @media (max-width: 900px) {
-
-        .hero-title {
-            font-size: 43px;
-        }
-
-        .section-title {
-            font-size: 31px;
-        }
-
-        .cta-title {
-            font-size: 31px;
-        }
-
+    #platform-features,
+    #how-it-works,
+    #detection-coverage,
+    #model-performance-section,
+    #detection-history-section,
+    #about-securenet {
+        scroll-margin-top: 25px;
     }
 
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 
 # ============================================================
 # ROUTING
@@ -501,6 +604,24 @@ if st.session_state.page == "analyze":
     show_analyze()
     st.stop()
 
+if st.session_state.page == "live_detection":
+    from live_detection import show_live_detection
+
+    show_live_detection()
+    st.stop()
+
+if st.session_state.page == "performance":
+    from performance import show_performance
+
+    show_performance()
+    st.stop()
+
+
+if st.session_state.page == "history":
+    from history import show_history
+
+    show_history()
+    st.stop()
 
 
 # ============================================================
@@ -526,59 +647,48 @@ with nav_logo:
     )
 
 
+# -------------------- SECTION NAVIGATION --------------------
+
 with nav_features:
 
     st.markdown(
-        '<div class="nav-link-button">',
+        '<a class="nav-anchor" href="#platform-features">Features</a>',
         unsafe_allow_html=True,
     )
-
-    if st.button(
-        "Features",
-        key="nav_features",
-        use_container_width=True,
-    ):
-        st.session_state.page = "landing"
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 with nav_how:
 
-    if st.button(
-        "How It Works",
-        key="nav_how",
-        use_container_width=True,
-    ):
-        st.session_state.page = "landing"
+    st.markdown(
+        '<a class="nav-anchor" href="#how-it-works">How It Works</a>',
+        unsafe_allow_html=True,
+    )
 
 
 with nav_detection:
 
-    if st.button(
-        "Detection",
-        key="nav_detection",
-        use_container_width=True,
-    ):
-        st.session_state.page = "analyze"
+    st.markdown(
+        '<a class="nav-anchor" href="#detection-coverage">Detection</a>',
+        unsafe_allow_html=True,
+    )
 
 
 with nav_about:
 
-    if st.button(
-        "About",
-        key="nav_about",
-        use_container_width=True,
-    ):
-        st.session_state.page = "landing"
+    st.markdown(
+        '<a class="nav-anchor" href="#about-securenet">About</a>',
+        unsafe_allow_html=True,
+    )
 
+
+# -------------------- ACTUAL PAGE NAVIGATION --------------------
 
 with nav_signin:
 
     if st.button(
         "Sign In",
         key="nav_signin",
-        use_container_width=True,
+        width="stretch",
     ):
         st.session_state.page = "login"
         st.rerun()
@@ -586,20 +696,13 @@ with nav_signin:
 
 with nav_start:
 
-    st.markdown(
-        '<div class="primary-button">',
-        unsafe_allow_html=True,
-    )
-
     if st.button(
         "Get Started",
         key="nav_get_started",
-        use_container_width=True,
+        width="stretch",
     ):
         st.session_state.page = "register"
         st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 st.divider()
@@ -648,32 +751,32 @@ with hero_left:
 
     button_one, button_two = st.columns([1, 1])
 
-    with button_one:
+    # ========================================================
+    # START DETECTION → REGISTER PAGE
+    # ========================================================
 
-        st.markdown(
-            '<div class="primary-button">',
-            unsafe_allow_html=True,
-        )
+    with button_one:
 
         if st.button(
             "Start Detection  →",
             key="hero_start",
-            use_container_width=True,
+            width="stretch",
         ):
             st.session_state.page = "register"
             st.rerun()
 
-        st.markdown("</div>", unsafe_allow_html=True)
+    # ========================================================
+    # EXPLORE PLATFORM → SCROLL
+    # ========================================================
 
     with button_two:
 
-        if st.button(
-            "Explore Platform",
-            key="hero_explore",
-            use_container_width=True,
-        ):
-            st.session_state.page = "login"
-            st.rerun()
+        st.markdown(
+            '<a class="hero-link" href="#platform-features">'
+            'Explore Platform'
+            '</a>',
+            unsafe_allow_html=True,
+        )
 
     st.markdown(
         """
@@ -718,7 +821,9 @@ with hero_right:
             )
 
             st.markdown(
-                '<div class="analysis-subtitle">Machine learning intrusion detection</div>',
+                '<div class="analysis-subtitle">'
+                'Machine learning intrusion detection'
+                '</div>',
                 unsafe_allow_html=True,
             )
 
@@ -729,12 +834,12 @@ with hero_right:
                 unsafe_allow_html=True,
             )
 
-        st.write("")
-
         with st.container(border=True):
 
             st.markdown(
-                '<div class="analysis-caption">Training Traffic Records</div>',
+                '<div class="analysis-caption">'
+                'Training Traffic Records'
+                '</div>',
                 unsafe_allow_html=True,
             )
 
@@ -744,7 +849,9 @@ with hero_right:
             )
 
             st.markdown(
-                '<div class="analysis-caption">NSL-KDD training records</div>',
+                '<div class="analysis-caption">'
+                'NSL-KDD training records'
+                '</div>',
                 unsafe_allow_html=True,
             )
 
@@ -768,7 +875,7 @@ with hero_right:
             st.bar_chart(
                 chart_data,
                 height=150,
-                use_container_width=True,
+                width="stretch",
             )
 
         result_left, result_right = st.columns(
@@ -809,11 +916,12 @@ with hero_right:
 # PROJECT STATISTICS
 # ============================================================
 
-st.write("")
-st.write("")
+st.markdown(
+    '<div class="section-gap"></div>',
+    unsafe_allow_html=True,
+)
 
 stat_1, stat_2, stat_3, stat_4 = st.columns(4)
-
 
 with stat_1:
 
@@ -822,7 +930,6 @@ with stat_1:
         "125,973",
     )
 
-
 with stat_2:
 
     st.metric(
@@ -830,14 +937,12 @@ with stat_2:
         "22,544",
     )
 
-
 with stat_3:
 
     st.metric(
         "Traffic Categories",
         "5",
     )
-
 
 with stat_4:
 
@@ -851,28 +956,25 @@ with stat_4:
 # PLATFORM FEATURES
 # ============================================================
 
-st.write("")
-st.write("")
-st.write("")
-
 st.markdown(
-    '<div class="section-kicker">Platform Features</div>',
+    '<div class="section-gap"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    '<div class="section-title">Intelligent Tools for Safer Networks</div>',
+    '<div id="platform-features"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    """
-    <div class="section-description">
-        Machine-learning-powered capabilities designed to
-        analyze network traffic, identify suspicious activity,
-        and support faster security decisions.
-    </div>
-    """,
+    '<div class="section-heading-wrapper">'
+    '<div class="section-kicker">Platform Features</div>'
+    '<div class="section-title">Intelligent Tools for Safer Networks</div>'
+    '<div class="section-description">'
+    'Machine-learning-powered capabilities designed to analyze network traffic, '
+    'identify suspicious activity, and support faster security decisions.'
+    '</div>'
+    '</div>',
     unsafe_allow_html=True,
 )
 
@@ -928,10 +1030,40 @@ for row_start in [0, 3]:
                     unsafe_allow_html=True,
                 )
 
-                st.markdown(
-                    f'<div class="card-title">{title}</div>',
-                    unsafe_allow_html=True,
-                )
+                # ====================================================
+                # DETECTION HISTORY → UNIQUE SECTION
+                # ====================================================
+
+                if title == "Detection History":
+
+                    if st.button(
+                        "📋  Detection History",
+                        key="landing_detection_history",
+                        width="content",
+                    ):
+                        st.session_state.page = "history"
+                        st.rerun()
+
+                # ====================================================
+                # MODEL PERFORMANCE → UNIQUE SECTION
+                # ====================================================
+
+                elif title == "Model Performance":
+
+                    if st.button(
+                        "📈  Model Performance",
+                        key="landing_model_performance",
+                        width="content",
+                    ):
+                        st.session_state.page = "performance"
+                        st.rerun()
+
+                else:
+
+                    st.markdown(
+                        f'<div class="card-title">{title}</div>',
+                        unsafe_allow_html=True,
+                    )
 
                 st.markdown(
                     f'<div class="card-description">{description}</div>',
@@ -943,27 +1075,25 @@ for row_start in [0, 3]:
 # HOW IT WORKS
 # ============================================================
 
-st.write("")
-st.write("")
-st.write("")
-
 st.markdown(
-    '<div class="section-kicker">Simple Process</div>',
+    '<div class="section-gap"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    '<div class="section-title">How It Works</div>',
+    '<div id="how-it-works"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    """
-    <div class="section-description">
-        From network traffic data to an actionable intrusion
-        detection result in four simple steps.
-    </div>
-    """,
+    '<div class="section-heading-wrapper">'
+    '<div class="section-kicker">Simple Process</div>'
+    '<div class="section-title">How It Works</div>'
+    '<div class="section-description">'
+    'From network traffic data to an actionable intrusion detection '
+    'result in four simple steps.'
+    '</div>'
+    '</div>',
     unsafe_allow_html=True,
 )
 
@@ -994,7 +1124,6 @@ steps = [
 
 step_columns = st.columns(4)
 
-
 for index, step in enumerate(steps):
 
     number, title, description = step
@@ -1023,28 +1152,25 @@ for index, step in enumerate(steps):
 # DETECTION COVERAGE
 # ============================================================
 
-st.write("")
-st.write("")
-st.write("")
-
 st.markdown(
-    '<div class="section-kicker">Detection Coverage</div>',
+    '<div class="section-gap"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    '<div class="section-title">Network Threat Categories</div>',
+    '<div id="detection-coverage"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    """
-    <div class="section-description">
-        The current system uses the NSL-KDD dataset to
-        classify traffic into normal traffic and four
-        major attack categories.
-    </div>
-    """,
+    '<div class="section-heading-wrapper">'
+    '<div class="section-kicker">Detection Coverage</div>'
+    '<div class="section-title">Network Threat Categories</div>'
+    '<div class="section-description">'
+    'The current system uses the NSL-KDD dataset to classify traffic '
+    'into normal traffic and four major attack categories.'
+    '</div>'
+    '</div>',
     unsafe_allow_html=True,
 )
 
@@ -1059,7 +1185,6 @@ threats = [
 
 
 threat_columns = st.columns(5)
-
 
 for index, threat in enumerate(threats):
 
@@ -1086,27 +1211,174 @@ for index, threat in enumerate(threats):
 
 
 # ============================================================
+# MODEL PERFORMANCE
+# ============================================================
+
+st.markdown(
+    '<div class="section-gap"></div>',
+    unsafe_allow_html=True,
+)
+
+# IMPORTANT:
+# Unique ID used only for Model Performance navigation.
+st.markdown(
+    '<div id="model-performance-section"></div>',
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    '<div class="section-heading-wrapper">'
+    '<div class="section-kicker">Model Performance</div>'
+    '<div class="section-title">Machine Learning Results</div>'
+    '<div class="section-description">'
+    'Compare the trained classification models using accuracy, F1-score, '
+    'and attack detection performance.'
+    '</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
+
+performance_left, performance_right = st.columns(2)
+
+
+with performance_left:
+
+    with st.container(border=True):
+
+        st.markdown(
+            '<div class="resource-icon">📈</div>'
+            '<div class="resource-title">Best Performing Model</div>'
+            '<div class="resource-text">'
+            'The Decision Tree model achieved the strongest overall result '
+            'among the four evaluated models, with approximately 79.27% accuracy '
+            'and 79.24% macro F1-score on the test data.'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            '<a class="resource-link" href="#platform-features">'
+            '← Back to Platform Features'
+            '</a>',
+            unsafe_allow_html=True,
+        )
+
+
+with performance_right:
+
+    with st.container(border=True):
+
+        st.markdown(
+            '<div class="resource-icon">🎯</div>'
+            '<div class="resource-title">Evaluated Algorithms</div>'
+            '<div class="resource-text">'
+            'Random Forest, Decision Tree, Logistic Regression, and Linear SVM '
+            'were evaluated for binary normal-versus-attack classification.'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            '<a class="resource-link" href="#detection-coverage">'
+            'View Detection Coverage →'
+            '</a>',
+            unsafe_allow_html=True,
+        )
+
+
+# ============================================================
+# DETECTION HISTORY
+# ============================================================
+
+st.markdown(
+    '<div class="section-gap"></div>',
+    unsafe_allow_html=True,
+)
+
+# IMPORTANT:
+# Unique ID used only for Detection History navigation.
+st.markdown(
+    '<div id="detection-history-section"></div>',
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    '<div class="section-heading-wrapper">'
+    '<div class="section-kicker">Detection History</div>'
+    '<div class="section-title">Previous Analysis Overview</div>'
+    '<div class="section-description">'
+    'A summary area for previously analyzed network traffic and detection outcomes.'
+    '</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
+
+history_left, history_right = st.columns(2)
+
+
+with history_left:
+
+    with st.container(border=True):
+
+        st.markdown(
+            '<div class="resource-icon">📋</div>'
+            '<div class="resource-title">Analysis Records</div>'
+            '<div class="resource-text">'
+            'The detection workflow can record analyzed traffic, predicted '
+            'classification, attack category, and model confidence for review.'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+
+with history_right:
+
+    with st.container(border=True):
+
+        st.markdown(
+            '<div class="resource-icon">🛡️</div>'
+            '<div class="resource-title">Detection Status</div>'
+            '<div class="resource-text">'
+            'Normal traffic and detected attack traffic can be reviewed as '
+            'separate outcomes to support security analysis and reporting.'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+
+st.markdown(
+    '<div style="text-align:center; margin-top:22px;">'
+    '<a class="resource-link" href="#platform-features">'
+    '← Back to Platform Features'
+    '</a>'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
 # ABOUT
 # ============================================================
 
-st.write("")
-st.write("")
-st.write("")
+st.markdown(
+    '<div class="section-gap"></div>',
+    unsafe_allow_html=True,
+)
 
+st.markdown(
+    '<div id="about-securenet"></div>',
+    unsafe_allow_html=True,
+)
 
 with st.container(border=True):
 
     st.markdown(
-        '<div class="about-kicker">About SecureNet AI</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
+        '<div class="about-kicker">About SecureNet AI</div>'
         '<div class="about-title">Machine Learning for Network Security</div>',
         unsafe_allow_html=True,
     )
-
-    st.write("")
 
     about_left, about_right = st.columns(
         [1.5, 1],
@@ -1116,31 +1388,22 @@ with st.container(border=True):
     with about_left:
 
         st.markdown(
-            """
-            <div class="about-text">
-                SecureNet AI is a machine-learning-based
-                intrusion detection system designed to analyze
-                network traffic and identify potentially malicious
-                activity.
-            </div>
-
-            <br>
-
-            <div class="about-text">
-                The system uses Python and Scikit-learn to
-                preprocess network traffic data, train
-                classification models, and predict whether
-                unseen traffic is normal or potentially intrusive.
-            </div>
-
-            <br>
-
-            <div class="about-note">
-                Current implementation performs dataset-based
-                analysis. It does not perform continuous
-                real-time packet monitoring.
-            </div>
-            """,
+            '<div class="about-text">'
+            'SecureNet AI is a machine-learning-based intrusion detection '
+            'system designed to analyze network traffic and identify '
+            'potentially malicious activity.'
+            '</div>'
+            '<br>'
+            '<div class="about-text">'
+            'The system uses Python and Scikit-learn to preprocess network '
+            'traffic data, train classification models, and predict whether '
+            'unseen traffic is normal or potentially intrusive.'
+            '</div>'
+            '<br>'
+            '<div class="about-note">'
+            'Current implementation performs dataset-based analysis. '
+            'It does not perform continuous real-time packet monitoring.'
+            '</div>',
             unsafe_allow_html=True,
         )
 
@@ -1171,28 +1434,26 @@ with st.container(border=True):
 # FINAL CTA
 # ============================================================
 
-st.write("")
-st.write("")
-st.write("")
-
 st.markdown(
-    """
-    <div class="cta-title">
-        Your Network Security Starts<br>
-        with Better Detection.
-    </div>
-    """,
+    '<div class="section-gap"></div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    """
-    <div class="cta-description">
-        Analyze network traffic and explore
-        machine-learning-powered intrusion detection
-        with SecureNet AI.
-    </div>
-    """,
+    '<div class="cta-title">'
+    'Your Network Security Starts<br>'
+    'with Better Detection.'
+    '</div>'
+    '<div class="cta-description">'
+    'Analyze network traffic and explore machine-learning-powered '
+    'intrusion detection with SecureNet AI.'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
+
+st.markdown(
+    "<br>",
     unsafe_allow_html=True,
 )
 
@@ -1202,29 +1463,32 @@ cta_left, cta_middle, cta_right = st.columns(
 )
 
 
-with cta_middle:
+# ============================================================
+# FINAL CTA → REGISTER PAGE
+# ============================================================
 
-    st.markdown(
-        '<div class="primary-button">',
-        unsafe_allow_html=True,
-    )
+with cta_middle:
 
     if st.button(
         "Start Network Analysis  →",
         key="final_start",
-        use_container_width=True,
+        width="stretch",
     ):
         st.session_state.page = "register"
         st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ============================================================
 # FOOTER
 # ============================================================
 
+st.markdown(
+    '<div class="section-gap"></div>',
+    unsafe_allow_html=True,
+)
+
 st.divider()
+
 
 footer_1, footer_2, footer_3, footer_4 = st.columns(
     [2, 1, 1, 1]
@@ -1239,13 +1503,10 @@ with footer_1:
     )
 
     st.markdown(
-        """
-        <div class="footer-text">
-            Machine-learning-powered network intrusion detection
-            designed to identify suspicious traffic and provide
-            actionable security insights.
-        </div>
-        """,
+        '<div class="footer-text">'
+        'Machine-learning-powered network intrusion detection designed '
+        'to identify suspicious traffic and provide actionable security insights.'
+        '</div>',
         unsafe_allow_html=True,
     )
 
@@ -1258,17 +1519,17 @@ with footer_2:
     )
 
     st.markdown(
-        '<div class="footer-item">Features</div>',
+        '<a class="footer-link" href="#platform-features">Features</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="footer-item">How It Works</div>',
+        '<a class="footer-link" href="#how-it-works">How It Works</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="footer-item">Detection</div>',
+        '<a class="footer-link" href="#detection-coverage">Detection</a>',
         unsafe_allow_html=True,
     )
 
@@ -1281,17 +1542,23 @@ with footer_3:
     )
 
     st.markdown(
-        '<div class="footer-item">About SecureNet AI</div>',
+        '<a class="footer-link" href="#about-securenet">'
+        'About SecureNet AI'
+        '</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="footer-item">Model Performance</div>',
+        '<a class="footer-link" href="#model-performance-section">'
+        'Model Performance'
+        '</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="footer-item">Detection History</div>',
+        '<a class="footer-link" href="#detection-history-section">'
+        'Detection History'
+        '</a>',
         unsafe_allow_html=True,
     )
 
@@ -1304,27 +1571,31 @@ with footer_4:
     )
 
     st.markdown(
-        '<div class="footer-item">Network Analysis</div>',
+        '<a class="footer-link" href="#detection-coverage">'
+        'Network Analysis'
+        '</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="footer-item">Attack Detection</div>',
+        '<a class="footer-link" href="#detection-coverage">'
+        'Attack Detection'
+        '</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        '<div class="footer-item">Security Insights</div>',
+        '<a class="footer-link" href="#model-performance-section">'
+        'Security Insights'
+        '</a>',
         unsafe_allow_html=True,
     )
 
 
 st.markdown(
-    """
-    <div class="copyright">
-        © 2026 SecureNet AI. All rights reserved.
-        Machine Learning Based Intrusion Detection System.
-    </div>
-    """,
+    '<div class="copyright">'
+    '© 2026 SecureNet AI. All rights reserved. '
+    'Machine Learning Based Intrusion Detection System.'
+    '</div>',
     unsafe_allow_html=True,
 )

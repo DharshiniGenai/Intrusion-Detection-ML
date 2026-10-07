@@ -16,3 +16,4 @@ models/*.joblib
 logs/*
 results/*
 reports/*
+data/*.db
