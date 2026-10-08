@@ -1,0 +1,5 @@
+Model,Accuracy,Macro F1,Weighted F1,Attack Recall
+Random Forest,0.7728,0.7719,0.7698,0.62
+Decision Tree,0.7927,0.7924,0.7914,0.67
+Logistic Regression,0.7545,0.754,0.7526,0.63
+SVM,0.7532,0.7527,0.7513,0.62
