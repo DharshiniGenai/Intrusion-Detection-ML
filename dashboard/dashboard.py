@@ -1,3 +1,4 @@
+import json
 import streamlit as st
 from src.database import get_latest_analysis
 
@@ -23,11 +24,16 @@ def show_dashboard():
             st.session_state.analysis_attacks = latest_analysis["attack_count"]
             st.session_state.analysis_rate = latest_analysis["intrusion_rate"]
 
-            import ast
+            
 
-            st.session_state.analysis_categories = ast.literal_eval(
+            category_counts = json.loads(
                 latest_analysis["category_counts"]
             )
+
+            if isinstance(category_counts, str):
+                category_counts = json.loads(category_counts)
+
+            st.session_state.analysis_categories = category_counts
     # ============================================================
     # PAGE STYLE
     # ============================================================

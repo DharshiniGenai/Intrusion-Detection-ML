@@ -65,6 +65,25 @@ def apply_history_styles():
     )
 
 
+def parse_category_counts(value):
+    if not value:
+        return {}
+
+    try:
+        parsed = json.loads(value)
+
+        if isinstance(parsed, str):
+            parsed = json.loads(parsed)
+
+        if isinstance(parsed, dict):
+            return parsed
+
+    except (json.JSONDecodeError, TypeError):
+        pass
+
+    return {}
+
+
 def show_history():
     apply_history_styles()
 
@@ -181,15 +200,9 @@ def show_history():
     display_rows = []
 
     for analysis in analyses:
-        category_counts = {}
-
-        if analysis["category_counts"]:
-            try:
-                category_counts = json.loads(
-                    analysis["category_counts"]
-                )
-            except (json.JSONDecodeError, TypeError):
-                category_counts = {}
+        category_counts = parse_category_counts(
+            analysis["category_counts"]
+        )
 
         display_rows.append(
             {
@@ -222,19 +235,15 @@ def show_history():
     category_totals = {}
 
     for analysis in analyses:
-        if analysis["category_counts"]:
-            try:
-                category_counts = json.loads(
-                    analysis["category_counts"]
-                )
-            except (json.JSONDecodeError, TypeError):
-                category_counts = {}
+        category_counts = parse_category_counts(
+            analysis["category_counts"]
+        )
 
-            for category, count in category_counts.items():
-                category_totals[category] = (
-                    category_totals.get(category, 0)
-                    + int(count)
-                )
+        for category, count in category_counts.items():
+            category_totals[category] = (
+                category_totals.get(category, 0)
+                + int(count)
+            )
 
     if category_totals:
         category_df = pd.DataFrame(
