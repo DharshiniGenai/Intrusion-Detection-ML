@@ -1,4 +1,6 @@
+
 import sys
+
 from pathlib import Path
 
 import streamlit as st
@@ -164,10 +166,18 @@ def show_login():
             padding-top: 8px;
         }
 
-        .forgot-link a {
-            color: #38bdf8;
-            font-size: 13px;
-            text-decoration: none;
+        .forgot-link button {
+            color: #38bdf8 !important;
+            font-size: 13px !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .forgot-link button:hover {
+            color: #7dd3fc !important;
+            background: transparent !important;
         }
 
         /* ---------- SIGN IN ---------- */
@@ -329,18 +339,34 @@ def show_login():
                 remember_me = st.checkbox("Remember me")
 
             with forgot_col:
-                st.markdown(
-                    """
-                    <div class="forgot-link">
-                        <a href="#">Forgot password?</a>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+                pass
 
             submitted = st.form_submit_button(
                 "Sign In",
                 use_container_width=True,
+            )
+
+        # Existing Forgot Password action
+        forgot_col = st.columns([1, 1])[1]
+
+        with forgot_col:
+
+            st.markdown(
+                '<div class="forgot-link">',
+                unsafe_allow_html=True,
+            )
+
+            if st.button(
+                "Forgot password?",
+                key="forgot_password_login",
+                width="stretch",
+            ):
+                st.session_state.page = "forgot_password"
+                st.rerun()
+
+            st.markdown(
+                '</div>',
+                unsafe_allow_html=True,
             )
 
         if submitted:
@@ -381,6 +407,9 @@ def show_login():
             unsafe_allow_html=True,
         )
 
-        if st.button("Create account", use_container_width=True):
+        if st.button(
+            "Create account",
+            use_container_width=True,
+        ):
             st.session_state.page = "register"
             st.rerun()

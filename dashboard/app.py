@@ -597,7 +597,12 @@ if st.session_state.page == "login":
 
     show_login()
     st.stop()
+    
+if st.session_state.page == "forgot_password":
+    from forgot_password import show_forgot_password
 
+    show_forgot_password()
+    st.stop()
 
 if st.session_state.page == "register":
     from register import show_register
