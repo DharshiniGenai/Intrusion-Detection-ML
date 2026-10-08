@@ -17,3 +17,6 @@ logs/*
 results/*
 reports/*
 data/*.db
+
+# Local database
+securenet.db
