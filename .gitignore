@@ -11,6 +11,8 @@ data/*.zip
 # Trained models
 models/*.pkl
 models/*.joblib
+!models/final_ids_model.joblib
+!models/attack_type_classifier.joblib
 
 # Generated files
 logs/*
