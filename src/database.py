@@ -173,6 +173,58 @@ def verify_user(email, password):
 
     return user
 
+# ============================================================
+# RESET USER PASSWORD
+# ============================================================
+
+def reset_user_password(full_name, email, new_password):
+
+    connection = get_connection()
+
+    try:
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM users
+            WHERE LOWER(email) = ?
+            AND LOWER(full_name) = ?
+            """,
+            (
+                email.strip().lower(),
+                full_name.strip().lower(),
+            ),
+        )
+
+        user = cursor.fetchone()
+
+        if user is None:
+            return False
+
+        new_password_hash = hash_password(
+            new_password
+        )
+
+        cursor.execute(
+            """
+            UPDATE users
+            SET password_hash = ?
+            WHERE id = ?
+            """,
+            (
+                new_password_hash,
+                user["id"],
+            ),
+        )
+
+        connection.commit()
+
+        return True
+
+    finally:
+        connection.close()
+
 def save_analysis(
     user_id,
     filename,

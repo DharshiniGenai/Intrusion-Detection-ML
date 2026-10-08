@@ -17,6 +17,7 @@ models/*.joblib
 # Generated files
 logs/*
 results/*
+!results/model_comparison.csv
 reports/*
 data/*.db
 
