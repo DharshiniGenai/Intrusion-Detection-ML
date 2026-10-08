@@ -1,6 +1,10 @@
-﻿import streamlit as st
+﻿import os
+
+import streamlit as st
 
 from src.live_detector import analyze_live_traffic
+
+LIVE_CAPTURE_ENABLED = os.getenv("LIVE_CAPTURE_ENABLED", "true").lower() == "true"
 
 
 def show_live_detection():
@@ -252,6 +256,13 @@ def show_live_detection():
         type="primary",
         width="stretch",
     ):
+        if not LIVE_CAPTURE_ENABLED:
+            st.info(
+                "Live packet capture is available when SecureNet AI "
+                "is running locally. The public deployment cannot capture "
+                "traffic from your device."
+            )
+            return   
 
         with st.spinner(
             "Capturing packets and analyzing network flows..."
