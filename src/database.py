@@ -9,8 +9,7 @@ from pathlib import Path
 # DATABASE PATH
 # ============================================================
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DATABASE_PATH = PROJECT_ROOT / "securenet.db"
+DATABASE_PATH = Path("/tmp/securenet.db")
 
 
 # ============================================================
