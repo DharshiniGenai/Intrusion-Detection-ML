@@ -23,3 +23,9 @@ data/*.db
 
 # Local database
 securenet.db
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
+src/.env

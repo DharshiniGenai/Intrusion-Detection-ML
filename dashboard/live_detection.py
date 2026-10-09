@@ -3,6 +3,7 @@
 import streamlit as st
 
 from src.live_detector import analyze_live_traffic
+from src.database import get_recent_live_detections
 
 LIVE_CAPTURE_ENABLED = os.getenv("LIVE_CAPTURE_ENABLED", "true").lower() == "true"
 
@@ -263,15 +264,29 @@ def show_live_detection():
                 "traffic from your device."
             )
             return   
+        try:
+            with st.spinner(
+                "Capturing packets and analyzing network flows..."
+            ):
+                results = analyze_live_traffic(
+                    count=int(packet_count),
+                    timeout=int(timeout),
+                )
 
-        with st.spinner(
-            "Capturing packets and analyzing network flows..."
-        ):
-
-            results = analyze_live_traffic(
-                count=int(packet_count),
-                timeout=int(timeout),
+        except PermissionError:
+            st.error(
+                "Permission denied while capturing network traffic. "
+                "Check your packet-capture permissions and network adapter."
             )
+            return
+
+        except Exception as exc:
+            st.error(
+                f"Live detection failed: {exc}. "
+                "Check the capture interface, permissions, and model files."
+            )
+            return
+
 
         # ========================================================
         # NO RESULTS
@@ -418,3 +433,72 @@ def show_live_detection():
                 f"{attacks} suspicious flow(s) were detected. "
                 "Review the detection results above."
             )
+
+    # ========================================================
+    # WINDOWS AGENT DETECTION HISTORY
+    # ========================================================
+
+    st.markdown(
+        '<div class="results-header">Windows Agent Detection History</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        "Recent network-flow predictions submitted by the Windows detection agent."
+    )
+
+    @st.fragment(run_every="5s")
+    def show_agent_history():
+        try:
+            agent_records = get_recent_live_detections(limit=100)
+
+            if not agent_records:
+                st.info("No agent detections have been stored yet.")
+                return
+
+            import pandas as pd
+
+            agent_df = pd.DataFrame(agent_records)
+
+            metric_col1, metric_col2 = st.columns(2)
+
+            with metric_col1:
+                st.metric("Stored Agent Records", len(agent_df))
+
+            with metric_col2:
+                attack_count = (
+                    agent_df["prediction"].eq("Attack").sum()
+                    if "prediction" in agent_df.columns
+                    else 0
+                )
+                st.metric("Potential Attack Predictions", int(attack_count))
+
+            display_columns = [
+                column
+                for column in [
+                    "detected_at",
+                    "agent_id",
+                    "src_ip",
+                    "dst_ip",
+                    "protocol",
+                    "packet_count",
+                    "prediction",
+                    "confidence",
+                ]
+                if column in agent_df.columns
+            ]
+
+            st.dataframe(
+                agent_df[display_columns],
+                width="stretch",
+                hide_index=True,
+            )
+
+            st.caption(
+                "Predictions are model outputs and are not independently verified attacks."
+            )
+
+        except Exception as exc:
+            st.error(f"Could not load agent detection history: {exc}")
+
+    show_agent_history()

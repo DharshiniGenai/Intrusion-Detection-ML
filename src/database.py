@@ -73,6 +73,30 @@ def initialize_database():
         )
         """
     )
+    # --------------------------------------------------------
+    # LIVE AGENT DETECTIONS TABLE
+    # --------------------------------------------------------
+
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS live_detections (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            agent_id TEXT NOT NULL,
+            detected_at TEXT NOT NULL,
+            src_ip TEXT NOT NULL,
+            dst_ip TEXT NOT NULL,
+            src_port INTEGER NOT NULL,
+            dst_port INTEGER NOT NULL,
+            protocol TEXT NOT NULL,
+            packet_count INTEGER NOT NULL,
+            src_bytes INTEGER NOT NULL,
+            dst_bytes INTEGER NOT NULL,
+            prediction TEXT NOT NULL,
+            confidence REAL NOT NULL
+        )
+        """
+    )
+
 
     connection.commit()
     connection.close()
@@ -322,3 +346,64 @@ def get_user_analyses(user_id):
     connection.close()
 
     return [dict(row) for row in analyses]
+
+
+def save_live_detections(agent_id, detections):
+    connection = get_connection()
+
+    try:
+        cursor = connection.cursor()
+        detected_at = datetime.now().astimezone().isoformat()
+
+        for detection in detections:
+            cursor.execute(
+                """
+                INSERT INTO live_detections (
+                    agent_id, detected_at, src_ip, dst_ip,
+                    src_port, dst_port, protocol, packet_count,
+                    src_bytes, dst_bytes, prediction, confidence
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    agent_id,
+                    detected_at,
+                    detection["src_ip"],
+                    detection["dst_ip"],
+                    detection["src_port"],
+                    detection["dst_port"],
+                    detection["protocol"],
+                    detection["packet_count"],
+                    detection["src_bytes"],
+                    detection["dst_bytes"],
+                    detection["prediction"],
+                    detection["confidence"],
+                ),
+            )
+
+        connection.commit()
+        return len(detections)
+
+    finally:
+        connection.close()
+
+
+def get_recent_live_detections(limit=100):
+    connection = get_connection()
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            """
+            SELECT *
+            FROM live_detections
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+
+        return [dict(row) for row in cursor.fetchall()]
+
+    finally:
+        connection.close()
