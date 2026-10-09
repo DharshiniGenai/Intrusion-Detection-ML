@@ -7,3 +7,6 @@ joblib==1.6.0
 matplotlib==3.11.2
 seaborn==0.13.2
 scapy==2.7.0
+fastapi
+uvicorn
+requests
